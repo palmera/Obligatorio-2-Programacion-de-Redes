@@ -27,7 +27,7 @@ namespace Servidor
             serverFiles = new List<Files>();
             string[] filesPath = Directory.GetFiles(startupPath);
             string[] fileNames = GetFileNames(startupPath);
-            
+            var prueba = "hola";
             for (int i = 0; i<fileNames.Length; i++)
             {
                 Files f = new Files();
