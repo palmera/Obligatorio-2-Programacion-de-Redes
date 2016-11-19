@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemotingConsumer", "RemotingConsumer\RemotingConsumer.csproj", "{E0852988-B204-42D9-9A72-3EC70BC4A48B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminMaintenance", "AdminMaintenance\AdminMaintenance.csproj", "{6F433E5F-2F0E-4E6B-ABED-E9044884F52E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E0852988-B204-42D9-9A72-3EC70BC4A48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0852988-B204-42D9-9A72-3EC70BC4A48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0852988-B204-42D9-9A72-3EC70BC4A48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F433E5F-2F0E-4E6B-ABED-E9044884F52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F433E5F-2F0E-4E6B-ABED-E9044884F52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F433E5F-2F0E-4E6B-ABED-E9044884F52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F433E5F-2F0E-4E6B-ABED-E9044884F52E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,7 +20,7 @@ namespace Servidor
         private ServerData() { }
 
         public static ServerData getInstance() {
-            if (SD != null)
+            if (SD == null)
             {
                 Administrator rootUser = new Administrator("admin", "admin");
                 SD = new ServerData();
