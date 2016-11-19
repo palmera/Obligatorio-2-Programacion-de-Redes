@@ -12,7 +12,7 @@ namespace RemotingConsumer
         [STAThread]
         static void Main()
         {
-            
+            Console.ReadKey();
         }
     }
 }

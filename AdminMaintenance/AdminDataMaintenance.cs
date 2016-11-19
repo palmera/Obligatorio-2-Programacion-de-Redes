@@ -4,16 +4,15 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using WCF;
 
 namespace AdminMaintenance
 {
-    class AdminMaintenance
+    class AdminDataMaitenance
     {
+        IWCFAdminMaintenance wcf = new WCFAdminMaintenance();
         public bool Login(string name,string password) {
-            using (var host = new ServiceHost(typeof(IAdminWCFService)))
-            {    
-                return host.Login(name, password);
-            }
+            return wcf.Login(name, password);
         }
     }
 }

@@ -16,13 +16,13 @@ namespace RemotingConsumer.Logic.WCFAdminServer
         }
 
         
-        public void Login(string name, string password)
+        public bool Login(string name, string password)
         {
             IRemotingAdminService.IRemotingAdminService adminService;
             adminService = (IRemotingAdminService.IRemotingAdminService)Activator.GetObject
                 (typeof(IRemotingAdminService.IRemotingAdminService),
                 "tcp://localhost:5000/RemotingAdminService");
-            adminService.LoginAdmin(name, password);
+            return adminService.LoginAdmin(name, password);
         }
     }
 }
