@@ -7,14 +7,14 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 
-namespace Obligatorio_Programacion_de_Redes
+namespace Servidor
 {
-    class RemotingServer
+    class RemotingAdminServer
     {
-        static void Main(string[] args)
+        public static void StartAdminRemoting()
         {
             System.Collections.IDictionary dict = new System.Collections.Hashtable();
-            dict["name"] = "CalculatorServerTcp";
+            dict["name"] = "RemotingAdminServerTcp";
             dict["port"] = 5000;
             dict["authenticationMode"] = "IdentifyCallers";
 
@@ -22,13 +22,14 @@ namespace Obligatorio_Programacion_de_Redes
             var serverChannel = new TcpChannel(dict, null, null);
             try
             {
+                //RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
                 // Specify the properties for the server channel.
                 ChannelServices.RegisterChannel(serverChannel, false);
                 RemotingConfiguration.RegisterWellKnownServiceType(
-                    typeof(CalculatorService.CalculatorService),
-                    "CalculatorService",
+                    typeof(RemotingAdminService),
+                    "RemotingAdminService",
                     WellKnownObjectMode.SingleCall);
-                Console.WriteLine("Remoting server started...");
+                Console.WriteLine("Remoting admin server started...");
                 Console.ReadLine();
             }
             catch (Exception ex)

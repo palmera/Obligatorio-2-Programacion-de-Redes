@@ -9,12 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cliente", "Cliente\Cliente.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocols", "Protocols\Protocols.csproj", "{F5FC366D-0C11-410F-8021-A556A7E46849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicWCF", "WcfServiceLibrary1\LogicWCF.csproj", "{BD787508-853A-47DA-904B-4CA29DFA2696}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteWCF", "ClienteWCF\ClienteWCF.csproj", "{F6258CFE-B1D8-4E44-B918-014FCF7FE216}"
-	ProjectSection(ProjectDependencies) = postProject
-		{BD787508-853A-47DA-904B-4CA29DFA2696} = {BD787508-853A-47DA-904B-4CA29DFA2696}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRemotingAdminService", "IRemoting\IRemotingAdminService.csproj", "{87277740-4B4C-4B11-8EEE-13DAB8889CB3}"
 EndProject
@@ -38,10 +33,6 @@ Global
 		{F5FC366D-0C11-410F-8021-A556A7E46849}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FC366D-0C11-410F-8021-A556A7E46849}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5FC366D-0C11-410F-8021-A556A7E46849}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD787508-853A-47DA-904B-4CA29DFA2696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD787508-853A-47DA-904B-4CA29DFA2696}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD787508-853A-47DA-904B-4CA29DFA2696}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD787508-853A-47DA-904B-4CA29DFA2696}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6258CFE-B1D8-4E44-B918-014FCF7FE216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6258CFE-B1D8-4E44-B918-014FCF7FE216}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6258CFE-B1D8-4E44-B918-014FCF7FE216}.Release|Any CPU.ActiveCfg = Release|Any CPU

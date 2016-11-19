@@ -24,6 +24,9 @@ namespace Servidor
 
         static void Main(string[] args)
         {
+
+            RemotingAdminServer.StartAdminRemoting();
+
             serverFiles = new List<Files>();
             string[] filesPath = Directory.GetFiles(startupPath);
             string[] fileNames = GetFileNames(startupPath);
