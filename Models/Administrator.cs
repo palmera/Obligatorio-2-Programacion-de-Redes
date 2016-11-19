@@ -9,6 +9,11 @@ namespace Models
     [Serializable]
     public class Administrator
     {
+        public Administrator(string name, string password)
+        {
+            this.Name = name;
+            this.Password = password;
+        }
         public string Name { get; set;}
         public string Password { get; set;}
     }
