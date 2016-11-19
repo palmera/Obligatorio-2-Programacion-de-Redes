@@ -9,7 +9,7 @@ namespace IRemotingAdminService
 {
     public interface IRemotingAdminService
     {
-        int AddAdmin(Administrator admin);
+        void AddAdmin(int number);
 
     }
 }
