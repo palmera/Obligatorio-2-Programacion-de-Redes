@@ -31,7 +31,7 @@ namespace RemotingConsumer
                 Name = name,
                 Password = password,
             };
-            adminService.AddAdmin(1);
+            adminService.AddAdmin(admin);
         }
     }
 }
