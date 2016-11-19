@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b654317b-0f27-4b66-954c-b716dd86e0e6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8dc1cb1d-ee75-4ab5-bffd-3f14556b1a15" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,9 +22,9 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="2bbfe7e9-a1c5-4bb7-ab40-e322401f05f1" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="15ea1440-a47f-4ea3-8771-aea63b4a41db" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="d302c945-309e-41ca-97ed-15b3329f8aa7" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="aad0963f-2e3d-45af-824e-9633ae7403b8" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="ac530d55-c726-47c7-b9b8-2d8b636d2748" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="3d01c8b3-2912-4cc3-92f9-5a4c004898c6" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCF/WCFAdminMaitenance/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
