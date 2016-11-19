@@ -10,9 +10,9 @@ namespace AdminMaintenance
 {
     class AdminDataMaitenance
     {
-        IWCFAdminMaintenance wcf = new WCFAdminMaintenance();
+        WCFAdminMaintenance service = new WCFAdminMaintenance();
         public bool Login(string name,string password) {
-            return wcf.Login(name, password);
+            return service.Login(name, password);
         }
     }
 }
