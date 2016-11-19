@@ -49,8 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\AdminLogic.cs" />
-    <Compile Include="Logic\WCFAdminServer\IWCFAdminService.cs" />
-    <Compile Include="Logic\WCFAdminServer\WCFAdminService.cs" />
     <Compile Include="program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,9 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WCFServer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
