@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace AdminMaintenance
 {
-    class Maintenance
+    class AdminMaintenance
     {
-        public void Login(string name,string password) {
+        public bool Login(string name,string password) {
             using (var host = new ServiceHost(typeof(IAdminWCFService)))
-            {
-                host.Login(name, password);
-                Console.WriteLine("press return to exit");
-
-                host.Close();
+            {    
+                return host.Login(name, password);
             }
         }
     }

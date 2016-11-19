@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace AdminMaintenance
 {
-    public partial class Form1 : Form
+    public partial class Login : Form
     {
         private AdminMaintenance maintenance;
-        public Form1()
+        public Login()
         {
             InitializeComponent();
             maintenance = new AdminMaintenance();
@@ -29,7 +29,14 @@ namespace AdminMaintenance
         {
             string name = Name.Text;
             string password = Password.Text;
-            maintenance.Login(name, password);
+            if (maintenance.Login(name, password))
+                startMaintenanceScreen();
+            else
+                MessageBox.Show("Nombre/Password incorrecto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        private void startMaintenanceScreen()
+        {
+
         }
     }
 }
