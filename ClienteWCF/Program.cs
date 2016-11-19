@@ -17,6 +17,7 @@ namespace ClienteWCF
             {
                 //host.Open();
                 Console.WriteLine("press return to exit");
+                
                 host.Close();
             }
 
