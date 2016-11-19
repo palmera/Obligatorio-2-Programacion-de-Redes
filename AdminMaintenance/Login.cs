@@ -13,11 +13,11 @@ namespace AdminMaintenance
 {
     public partial class Login : Form
     {
-        private AdminMaintenance maintenance;
+        private AdminDataMaitenance maintenance;
         public Login()
         {
             InitializeComponent();
-            maintenance = new AdminMaintenance();
+            maintenance = new AdminDataMaitenance();
         }
 
         private void label1_Click(object sender, EventArgs e)

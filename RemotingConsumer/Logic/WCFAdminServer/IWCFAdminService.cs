@@ -15,6 +15,6 @@ namespace RemotingConsumer.Logic.WCFAdminServer
         void DoWork();
 
         [OperationContract]
-        void Login(string name, string password);
+        bool Login(string name, string password);
     }
 }
