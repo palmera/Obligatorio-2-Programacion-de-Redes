@@ -24,6 +24,7 @@ namespace Servidor
             {
                 Administrator rootUser = new Administrator("admin", "admin");
                 SD = new ServerData();
+                SD.admins = new List<Administrator>();
                 SD.AddAdmin(rootUser);
                 return SD;
             }
