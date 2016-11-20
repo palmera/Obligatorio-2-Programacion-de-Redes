@@ -206,6 +206,15 @@ namespace Servidor
                 case 50:
                     downloadUpdatedFile(nws, clientName, data);
                     break;
+                case 60://crear archivo
+                    downloadUpdatedFile(nws, clientName, data);
+                    break;
+                case 70://eliminar archivo
+                    downloadUpdatedFile(nws, clientName, data);
+                    break;
+                case 80://renombrar archivo
+                    downloadUpdatedFile(nws, clientName, data);
+                    break;
                 default:    
                     string hola = System.Text.Encoding.ASCII.GetString(header);
                     Console.WriteLine("cliente no conectado es: " + hola);
