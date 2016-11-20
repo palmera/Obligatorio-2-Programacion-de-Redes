@@ -13,7 +13,7 @@ namespace RemotingConsumer.Logic
         public AdminLogic() {
             adminService = (IRemotingAdminService.IRemotingAdminService)Activator.GetObject
                 (typeof(IRemotingAdminService.IRemotingAdminService),
-                "tcp://192.168.1.27:5000/RemotingAdminService");
+                "tcp://192.168.1.18:5000/RemotingAdminService");
         }
 
         public bool Login(string name, string password)

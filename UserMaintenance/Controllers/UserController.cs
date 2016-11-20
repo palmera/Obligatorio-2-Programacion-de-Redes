@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using UserMaintenance.Models;
 using Utilities.Exceptions;
 
 namespace UserMaintenance.Controllers
@@ -12,13 +13,15 @@ namespace UserMaintenance.Controllers
     public class UserController : ApiController
     {
         private UserLogic userLogic;
+        private LogValidator logValidator;
         public UserController()
         {
             userLogic = new UserLogic();
+            logValidator = new LogValidator();
         }
         [Route("api/Users/{name}/{password}")]
         [HttpGet]
-        public IHttpActionResult Login(string name,string password)
+        public IHttpActionResult AdminLogin(string name,string password)
         {
             try
             {
@@ -35,13 +38,20 @@ namespace UserMaintenance.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Route("api/Users")]
+        [Route("api/Users/{name}/{password}")]
         [HttpPost]
         public IHttpActionResult Add(string name, string password) {
             try
             {
-                userLogic.AddUser(name, password);
-                return Ok();
+
+                if (logValidator.AdminLogged(Request.Headers))
+                {
+                    userLogic.AddUser(name, password);
+                    return Ok();
+                }else
+                {
+                    return BadRequest("Usuario o contrasenia incorrectos");
+                }
             }
             catch (Exception ex) {
                 return BadRequest(ex.Message);
@@ -49,14 +59,20 @@ namespace UserMaintenance.Controllers
         }
         [Route("api/Users/{name}")]
         [HttpPut]
-        public IHttpActionResult Update(string name,string newName,string password)
+        public IHttpActionResult Update(string name,User user)
         {
            try
             {
-                if (userLogic.UpdateUser(name, newName, password))
-                    return Ok();
-                else
-                    return NotFound();
+                if (logValidator.AdminLogged(Request.Headers))
+                {
+                    if (userLogic.UpdateUser(name, user.name, user.password))
+                        return Ok();
+                    else
+                        return NotFound();
+                }
+                else {
+                    return BadRequest("Usuario o contrasenia incorrectos");
+                }
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -68,10 +84,16 @@ namespace UserMaintenance.Controllers
         {
             try
             {
-                if (userLogic.DeleteUser(name))
-                    return Ok();
-                else
-                    return NotFound();
+                if (logValidator.AdminLogged(Request.Headers))
+                {
+                    if (userLogic.DeleteUser(name))
+                        return Ok();
+                    else
+                        return NotFound();
+                }
+                else {
+                    return BadRequest("Usuario o contrasenia invalidos");
+                }
             }
             catch (Exception ex)
             {
