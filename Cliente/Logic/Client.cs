@@ -26,21 +26,21 @@ namespace Cliente.Logic
             myFiles = new List<ClientFile>();
         }
 
-        public  bool connect(string name,string serverIP,int port)
+        public  int connect(string name,string serverIP,int port)
         {
-
-            if (makeConnection(name, serverIP, port)) {
+            return makeConnection(name, serverIP, port);
+            /*if (makeConnection(name, serverIP, port)) {
                 return true;
-            }return false;
+            }return false;*/
         }
 
-        private  bool makeConnection(string name,string serverIP, int port)
+        private  int makeConnection(string name,string serverIP, int port)
         {
              tcpClient = new TcpClient(serverIP, port);
             return authenticateClient(tcpClient, name);
 
         }
-        private  bool authenticateClient(TcpClient client, string name)
+        private int authenticateClient(TcpClient client, string name)
         {
             NetworkStream nws = client.GetStream();
             byte[] data = protocol.makeAuthorizationHeader(name);
@@ -49,7 +49,7 @@ namespace Cliente.Logic
             response = protocol.receiveData(client, 12);
             if (response != null)
                 return protocol.checkIfLogged(response);
-            return false;
+            return -1;
         }
 
         public void listFiles()

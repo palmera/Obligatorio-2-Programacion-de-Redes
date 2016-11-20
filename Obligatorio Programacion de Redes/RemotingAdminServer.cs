@@ -46,21 +46,21 @@ namespace Servidor
         public static void StartUserRemoting() {
             System.Collections.IDictionary dict = new System.Collections.Hashtable();
             dict["name"] = "RemotingUserServerTcp";
-            dict["port"] = 5000;
+            dict["port"] = 5010;
             dict["authenticationMode"] = "IdentifyCallers";
 
             // Set up the server channel.
             var serverChannel = new TcpChannel(dict, null, null);
             try
             {
-                //RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
+                RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
                 // Specify the properties for the server channel.
                 ChannelServices.RegisterChannel(serverChannel, false);
                 RemotingConfiguration.RegisterWellKnownServiceType(
                     typeof(UserService),
                     "RemotingUserService",
                     WellKnownObjectMode.SingleCall);
-                Console.WriteLine("Remoting admin server started...");
+                Console.WriteLine("Remoting user server started...");
                 Console.ReadLine();
             }
             catch (Exception ex)

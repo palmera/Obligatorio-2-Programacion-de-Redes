@@ -44,17 +44,27 @@ namespace Cliente.Interface
         }
         private bool showLoginMenu()
         {
-            Console.WriteLine("Ingrese nombre de usuario");
+            Console.WriteLine("Ingrese nombre de usuario/administrador");
             string name = Console.ReadLine();
-            if (client.connect(name, serverIP, port))
+            Console.WriteLine("Ingrese contrasena");
+            string password = Console.ReadLine();
+            string token = name + '|' + password;
+            int response = client.connect(token, serverIP, port);
+            switch (response)
             {
-                Console.WriteLine("CLIENTE CONECTADO");
-                mainMenu();
-                return true;
-            }
-            else {
-                Console.WriteLine("NO PUDO INICIAR SESIÓN");
-                return false;
+                case 1:
+                    Console.WriteLine("ADMINISTRADOR CONECTADO");
+                    mainMenu();
+                    return true;
+                case 2:
+                    Console.WriteLine("CLIENTE CONECTADO");
+                    mainMenu();
+                    return true;
+                case 3:
+                    Console.WriteLine("NO PUDO INICIAR SESIÓN");
+                    return false;
+                default:
+                    return false;
             }
         }
         public void mainMenu()

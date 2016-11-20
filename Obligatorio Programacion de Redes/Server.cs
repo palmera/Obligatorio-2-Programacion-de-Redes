@@ -1,5 +1,6 @@
-﻿﻿using Obligatorio_Programacion_de_Redes.Files;
+﻿using Obligatorio_Programacion_de_Redes.Files;
 using Protocols;
+using Servidor.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,15 +18,17 @@ namespace Servidor
         public static byte[] data = new byte[16];
         private static Protocol protocol;
         private static List<TcpClient> clientes;
-        private static List<String> clientesPermitidos;
         private static List<Files> serverFiles;
         private static string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Archivos";
         private static Object lock_object = new object();
 
         static void Main(string[] args)
         {
-            Thread remotingThread = new Thread(() => RemotingAdminServer.StartAdminRemoting());
-            remotingThread.Start();
+            Thread remotingAdminThread = new Thread(() => RemotingAdminServer.StartAdminRemoting());
+            remotingAdminThread.Start();
+            Thread remotingUserThread = new Thread(() => RemotingAdminServer.StartUserRemoting());
+            remotingUserThread.Start();
+            //RemotingAdminServer.StartUserRemoting();
             //RemotingAdminServer.StartAdminRemoting();
 
             serverFiles = new List<Files>();
@@ -40,8 +43,7 @@ namespace Servidor
                 serverFiles.Add(f);
             }
             Console.WriteLine(buildFileListing(serverFiles));
-
-            cargarClientesPermitidos();
+            
             protocol = new Protocol();
             clientes = new List<TcpClient>();
             aceptarConecciones();
@@ -53,14 +55,7 @@ namespace Servidor
                 files[i] = Path.GetFileName(files[i]);
             return files;
         }
-
-        private static void cargarClientesPermitidos()
-        {
-            clientesPermitidos = new List<string>();
-            clientesPermitidos.Add("Juan");
-            clientesPermitidos.Add("Agus");
-            clientesPermitidos.Add("Pepe");
-        }
+        
 
         private static void aceptarConecciones()
         {
@@ -101,11 +96,31 @@ namespace Servidor
             }
         }
 
-        private static void sendDataToClient(string data, NetworkStream nws)
+        private static void clientLogin(string data, NetworkStream nws)
         {
-            byte[] a = protocol.authenticationResponse(clientesPermitidos.Contains(data));
-            string b = Encoding.ASCII.GetString(a);
-            nws.Write(protocol.authenticationResponse(clientesPermitidos.Contains(data)), 0, a.Length);
+            string userName = data.Split('|')[0];
+            string password = data.Split('|')[1];
+            Administrator user = new Administrator(userName, password);
+            byte[] userData;
+
+            bool userExists = UserData.getInstance().UserLogin(user);
+            bool adminExists = ServerData.getInstance().AdminLogin(user);
+            if (adminExists)
+            {
+                Console.WriteLine("Logueado como administrador: "+userName);
+                userData = protocol.authenticationResponse(1);
+            }
+            else if (userExists)
+            {
+                Console.WriteLine("Logueado como usuario: " + userName);
+                userData = protocol.authenticationResponse(2);
+            }
+            else
+            {
+                userData = protocol.authenticationResponse(3);
+            }
+            string b = Encoding.ASCII.GetString(userData);
+            nws.Write(userData, 0, userData.Length);
         }
 
         private static string buildFileListing(List<Files> files) {
@@ -133,7 +148,7 @@ namespace Servidor
                     int bufferSize = data.Length;
 
 
-                    sendDataToClient(name, nws);
+                    clientLogin(name, nws);
                     /*byte[] a = protocol.authenticationResponse(clientesPermitidos.Contains(name));
                     string b = Encoding.ASCII.GetString(a);
                     nws.Write(protocol.authenticationResponse(clientesPermitidos.Contains(name)), 0, a.Length);*/
@@ -142,7 +157,6 @@ namespace Servidor
 
 
                     clientName = System.Text.Encoding.ASCII.GetString(data);
-                    Console.WriteLine("cliente conectado es: "+ clientName);
                     //connection.Send(protocol.ArmarTramaRespuestaAutenticacionCliente(UsuarioValido(nombreUsuario)));
                     break;
                 case 10: //cliente pide listado de archivos

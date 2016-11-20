@@ -20,7 +20,6 @@ namespace Servidor
             var admin = new Administrator(name, password);
             return SD.AddAdmin(admin);
         }
-
         public bool ModifyAdmin(string name, string newName) {
             return SD.ModifyAdmin(name, newName);
         }

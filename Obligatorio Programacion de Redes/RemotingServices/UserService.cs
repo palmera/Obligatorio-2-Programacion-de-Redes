@@ -9,7 +9,7 @@ using Utilities.Exceptions;
 
 namespace Servidor
 {
-    public class UserService : IUserService
+    public class UserService : MarshalByRefObject, IUserService
     {
         private UserData userData;
         public UserService() {

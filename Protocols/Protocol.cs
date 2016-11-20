@@ -76,19 +76,23 @@ namespace Protocols
 
             }
         }
-        public bool checkIfLogged(byte[] response)
+        public int checkIfLogged(byte[] response)
         {
             string responseText = Encoding.ASCII.GetString(response);
             string result = responseText.Substring(9, 3);
             if (result.Equals("200"))
             {
-                Console.WriteLine("connected");
-                return true;
+                Console.WriteLine("connected as admin");
+                return 1;
+            }
+            else if (result.Equals("201")) {
+                Console.WriteLine("connected as user");
+                return 2;
             }
             else
             {
-                Console.WriteLine("no connected");
-                return false;
+                Console.WriteLine("not connected");
+                return 3;
             }
         }
 
@@ -119,16 +123,24 @@ namespace Protocols
             string trama = "REQ" + "50" + makeSizeText((filename.Length + data.Length + 1)+"") +filename+"|"+ data;
             return stringToByte(trama);
         }
-        public byte[] authenticationResponse(bool isAuthentified)
+        public byte[] authenticationResponse(int isAuthentified)
         {
             string response;
-            if (isAuthentified)
+            switch (isAuthentified)
             {
-                response = "RES" + "00" + makeSizeText("3") + "200";
-                return stringToByte(response);
+                case 1:
+                    response = "RES" + "00" + makeSizeText("3") + "200";
+                    return stringToByte(response);
+                case 2:
+                    response = "RES" + "00" + makeSizeText("3") + "201";
+                    return stringToByte(response);
+                case 3:
+                    response = "RES" + "00" + makeSizeText("3") + "400";
+                    return stringToByte(response);
+                default:
+                    response = "RES" + "00" + makeSizeText("3") + "400";
+                    return stringToByte(response);
             }
-            response = "RES" + "00" + makeSizeText("3") + "400";
-            return stringToByte(response);
 
         }
         public byte[] headerSendListing(string data)
