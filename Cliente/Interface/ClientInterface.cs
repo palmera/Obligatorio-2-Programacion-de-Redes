@@ -171,7 +171,7 @@ namespace Cliente.Interface
                     case 7://crear archivo
                         Console.WriteLine("Ingrese la ruta del archivo que quiere subir");
                         filename = Console.ReadLine();
-                        client.returnUpdatedFile(filename);
+                        client.addFile(filename);
                         break;
                     case 8://eliminar archivo
                         Console.WriteLine("Ingrese el nombre del archivo desea eliminar");

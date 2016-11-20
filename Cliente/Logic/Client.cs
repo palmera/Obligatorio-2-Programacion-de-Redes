@@ -51,7 +51,18 @@ namespace Cliente.Logic
                 return protocol.checkIfLogged(response);
             return -1;
         }
-
+        public void addFile(string routeAndName)
+        {
+            NetworkStream nws = tcpClient.GetStream();
+            string filename = routeAndName.Split('\\')[routeAndName.Split('\\').Length - 1];
+            string route = routeAndName.TrimEnd('\\');
+            ClientFile fileToAdd = new ClientFile(filename, route);
+            sendFileToServer(fileToAdd, true);
+            receiveData();
+            /*ClientFile newFile = new ClientFile();
+            sendFileToServer(clientFile);*/
+            //receiveData();
+        }
         public void listFiles()
         {
             NetworkStream nws = tcpClient.GetStream();
@@ -100,7 +111,7 @@ namespace Cliente.Logic
                     removeEditableFile(data);
                     break;
                 case 61://crear archivo
-                    addFile(data);
+                    var a = 0;// addFile(data);
                     break;
                 case 71://eliminar archivo
                     removeEditableFile(data);
@@ -118,13 +129,7 @@ namespace Cliente.Logic
                     break;
             }
         }
-        public void addFile(byte[] data) {
-            var routeAndName = Encoding.ASCII.GetString(data);
-            var a = 0;
-            /*ClientFile newFile = new ClientFile();
-            sendFileToServer(clientFile);*/
-            //receiveData();
-        }
+
         public void downloadFileForEdit(string filename)
         {
             NetworkStream nws = tcpClient.GetStream();
@@ -236,12 +241,12 @@ namespace Cliente.Logic
             ClientFile clientFile = myFiles.Find(c => c.name.Equals(filename) && c.editable);
             if (clientFile == null)
                 clientFile = new ClientFile(filename,startupPath+"\\"+filename);
-            sendFileToServer(clientFile);
+            sendFileToServer(clientFile, false);
             receiveData();
 
         }
 
-        private void sendFileToServer(ClientFile clientFile)
+        private void sendFileToServer(ClientFile clientFile, bool addingFile)
         {
             try
             {
@@ -249,10 +254,17 @@ namespace Cliente.Logic
                 FileStream fs;
                 fs = new FileStream(clientFile.path, FileMode.Open, FileAccess.Read);
                 byte[] bytesToSend = new byte[fs.Length];
-
+                byte[] package;
                 fs.Read(bytesToSend, 0, bytesToSend.Length);
-
-                byte[] package = protocol.makeReturnUpdatedFileHeader(System.Text.Encoding.ASCII.GetString(bytesToSend), clientFile.name);
+                if (addingFile)
+                {
+                    package = protocol.makeAddFileRequestHeader(System.Text.Encoding.ASCII.GetString(bytesToSend), clientFile.name);
+                }
+                else
+                {
+                    package = protocol.makeReturnUpdatedFileHeader(System.Text.Encoding.ASCII.GetString(bytesToSend), clientFile.name);
+                }
+                
                 nws.Write(package, 0, package.Length);
 
                 fs.Close();

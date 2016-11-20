@@ -103,6 +103,11 @@ namespace Protocols
             return stringToByte(trama);
         }
 
+        public byte[] makeAddFileRequestHeader(string filename, string data) {
+            string trama = "REQ" + "60" + makeSizeText((filename.Length + data.Length + 1) + "") + filename + "|" + data;
+            return stringToByte(trama);
+        }
+
         public byte[] makeDownloadFileForEditHeader(string filename)
         {
             string trama = "REQ" + "20" + makeSizeText(filename.Length+"")+ filename;

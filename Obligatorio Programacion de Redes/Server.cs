@@ -310,7 +310,7 @@ namespace Servidor
             if (files.Count > 0) fileData[0] = fileData[0] + "("+files.Count+")";
             downloadFile(fileData[0], fileText);
             var serverResponse = protocol.createFileOkResponse("Archivo Creado");
-            nws.Write(serverResponse,0,serverResponse.Length)
+            nws.Write(serverResponse, 0, serverResponse.Length);
 
         }
         private static void downloadFile(string name,byte[] fileData)
