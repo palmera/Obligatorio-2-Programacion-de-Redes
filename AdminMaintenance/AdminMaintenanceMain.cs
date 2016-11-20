@@ -25,7 +25,17 @@ namespace AdminMaintenance
 
         private void RemoveAdminButton_Click(object sender, EventArgs e)
         {
-
+            var name = adminListBox.GetItemText(adminListBox.SelectedItem);
+            if (name !="")
+            {
+                if (maintenance.DeleteAdmin(name))
+                {
+                    System.Windows.Forms.MessageBox.Show("Admin " + name + " deleted");
+                    LoadAdminListBox();
+                }
+                else System.Windows.Forms.MessageBox.Show("An error occured while deleting selected admin");
+            }
+            else System.Windows.Forms.MessageBox.Show("You must select an admin to remove");
         }
 
         private void addAdminButton_Click(object sender, EventArgs e)
@@ -35,13 +45,38 @@ namespace AdminMaintenance
 
             if (maintenance.AddAdmin(userName, password)) {
                 LoadAdminListBox();
-            }else System.Windows.Forms.MessageBox.Show("Admin username already exists");
+                nameTextBox.Text = "";
+                passwordTextBox.Text = "";
+                System.Windows.Forms.MessageBox.Show("Admin added");
+            }
+            else System.Windows.Forms.MessageBox.Show("Admin username already exists");
 
         }
         private void LoadAdminListBox() {
             var list = maintenance.GetAllAdmins();
             adminListBox.Items.Clear();
             adminListBox.Items.AddRange(list.ToArray());
+        }
+
+        private void modifyAdminButton_Click(object sender, EventArgs e)
+        {
+            var name = adminListBox.GetItemText(adminListBox.SelectedItem);
+            if (name != "")//make sure an admin is selected
+            {
+                string newName = Microsoft.VisualBasic.Interaction.InputBox("Enter new name", "Modify Administrator name", name);
+                if (maintenance.AdminExists(name))//make sure selected admin still exists
+                {
+                    if (!maintenance.AdminExists(newName))//make sure new name isn't duplicated
+                    {
+                        maintenance.ModifyAdmin(name, newName);
+                        LoadAdminListBox();
+                    }
+                    else System.Windows.Forms.MessageBox.Show("That name is currently used");
+
+                }
+                else System.Windows.Forms.MessageBox.Show("An error occured while deleting selected admin - the selected admin no longer exists");
+            }
+            else System.Windows.Forms.MessageBox.Show("You must select an admin to rename");
         }
     }
 }

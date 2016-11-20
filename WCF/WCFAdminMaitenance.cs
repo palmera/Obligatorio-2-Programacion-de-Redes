@@ -20,9 +20,9 @@ namespace WCF
             return adminLogic.AddAdmin(name, password);
         }
 
-        public bool DeleteAdmin(string name, string password)
+        public bool DeleteAdmin(string name)
         {
-            return adminLogic.DeleteAdmin(name, password);
+            return adminLogic.DeleteAdmin(name);
         }
 
         public List<string> GetAllAdmins()
@@ -35,9 +35,13 @@ namespace WCF
             return adminLogic.Login(name, password);
         }
 
-        public bool ModifyAdmin(string name, string password, string newName)
+        public bool ModifyAdmin(string name, string newName)
         {
-            throw new NotImplementedException();
+            return adminLogic.ModifyAdmin(name, newName);
+        }
+
+        public bool AdminExists(string name) {
+            return adminLogic.AdminExists(name);
         }
     }
 }

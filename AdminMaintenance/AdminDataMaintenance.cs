@@ -23,8 +23,15 @@ namespace AdminMaintenance
             return service.AddAdmin(name, password);
         }
 
-        public bool DeleteAdmin(string name, string password) {
-            return service.DeleteAdmin(name, password);
+        public bool DeleteAdmin(string name) {
+            return service.DeleteAdmin(name);
+        }
+        public bool ModifyAdmin(string name, string newName)
+        {
+            return service.ModifyAdmin(name, newName);
+        }
+        public bool AdminExists(string name) {
+            return service.AdminExists(name);
         }
     }
 }

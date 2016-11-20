@@ -19,13 +19,16 @@ namespace WCF
         bool AddAdmin(string name, string password);
 
         [OperationContract]
-        bool ModifyAdmin(string name, string password, string newName);
+        bool ModifyAdmin(string name, string newName);
 
         [OperationContract]
-        bool DeleteAdmin(string name, string password);
+        bool DeleteAdmin(string name);
 
         [OperationContract]
         List<string> GetAllAdmins();
+
+        [OperationContract]
+        bool AdminExists(string name);
         
 
         // TODO: Add your service operations here

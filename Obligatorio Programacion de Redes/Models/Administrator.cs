@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace Obligatorio_Programacion_de_Redes.Models
 {
     [Serializable]
     public class Administrator : IEquatable<Administrator>

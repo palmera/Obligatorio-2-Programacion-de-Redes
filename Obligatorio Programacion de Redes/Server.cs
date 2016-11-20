@@ -24,8 +24,9 @@ namespace Servidor
 
         static void Main(string[] args)
         {
-
-            RemotingAdminServer.StartAdminRemoting();
+            Thread remotingThread = new Thread(() => RemotingAdminServer.StartAdminRemoting());
+            remotingThread.Start();
+            //RemotingAdminServer.StartAdminRemoting();
 
             serverFiles = new List<Files>();
             string[] filesPath = Directory.GetFiles(startupPath);

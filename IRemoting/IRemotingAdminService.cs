@@ -10,9 +10,10 @@ namespace IRemotingAdminService
     {
         bool LoginAdmin(string name, string password);
         bool AddAdmin(string name, string password);
-        bool ModifyAdmin(string name, string password, string newName);
-        bool DeleteAdmin(string name, string password);
+        bool ModifyAdmin(string name, string newName);
+        bool DeleteAdmin(string name);
         List<string> GetAllAdmins();
+        bool AdminExists(string name);
 
     }
 }

@@ -30,13 +30,18 @@ namespace RemotingConsumer.Logic
             return adminService.AddAdmin(name, password);
         }
 
-        public bool DeleteAdmin(string name, string password)
+        public bool DeleteAdmin(string name)
         {
-            return adminService.DeleteAdmin(name, password);
+            return adminService.DeleteAdmin(name);
         }
 
-        public bool ModifyAdmin(string name, string password, string newName) {
-            return adminService.ModifyAdmin(name, password, newName);
+        public bool ModifyAdmin(string name, string newName) {
+            return adminService.ModifyAdmin(name, newName);
+        }
+
+        public bool AdminExists(string name)
+        {
+            return adminService.AdminExists(name);
         }
     }
 }

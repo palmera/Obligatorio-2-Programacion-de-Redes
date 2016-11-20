@@ -21,20 +21,22 @@ namespace Servidor
             return SD.AddAdmin(admin);
         }
 
-        public bool ModifyAdmin(string name, string password, string newName) {
-            var adminToModify = new Administrator(name, password);
-            return SD.ModifyAdmin(adminToModify, newName);
+        public bool ModifyAdmin(string name, string newName) {
+            return SD.ModifyAdmin(name, newName);
         }
 
-        public bool DeleteAdmin(string name, string password) {
-            var admin = new Administrator(name, password);
-            return SD.DeleteAdmin(admin);
+        public bool DeleteAdmin(string name) {
+            return SD.DeleteAdmin(name);
         }
 
         public List<string> GetAllAdmins()
         {
             return SD.GetAllAdmins();
         }
-        
+
+        public bool AdminExists(string name)
+        {
+            return SD.AdminExists(name);
+        }
     }
 }

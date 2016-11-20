@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.modifyAdminButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // adminListBox
@@ -108,11 +109,22 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Password";
             // 
+            // modifyAdminButton
+            // 
+            this.modifyAdminButton.Location = new System.Drawing.Point(149, 333);
+            this.modifyAdminButton.Name = "modifyAdminButton";
+            this.modifyAdminButton.Size = new System.Drawing.Size(131, 23);
+            this.modifyAdminButton.TabIndex = 8;
+            this.modifyAdminButton.Text = "Modify Admin";
+            this.modifyAdminButton.UseVisualStyleBackColor = true;
+            this.modifyAdminButton.Click += new System.EventHandler(this.modifyAdminButton_Click);
+            // 
             // AdminMaintenanceMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 401);
+            this.Controls.Add(this.modifyAdminButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -138,5 +150,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button modifyAdminButton;
     }
 }
