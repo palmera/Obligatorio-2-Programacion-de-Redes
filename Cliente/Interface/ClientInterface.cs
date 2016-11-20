@@ -54,11 +54,11 @@ namespace Cliente.Interface
             {
                 case 1:
                     Console.WriteLine("ADMINISTRADOR CONECTADO");
-                    mainMenu();
+                    mainAdminMenu();
                     return true;
                 case 2:
                     Console.WriteLine("CLIENTE CONECTADO");
-                    mainMenu();
+                    mainUserMenu();
                     return true;
                 case 3:
                     Console.WriteLine("NO PUDO INICIAR SESIÓN");
@@ -67,13 +67,37 @@ namespace Cliente.Interface
                     return false;
             }
         }
-        public void mainMenu()
+        public void mainUserMenu()
         {
             int option = 0;
             while (true) {
                 try
                 {
-                    showMainMenu();
+                    showUserMainMenu();
+                    option = int.Parse(Console.ReadLine());
+                    if (option > 1 || option < 6)
+                    {
+                        throw new Exception("Comando invalido");
+                    }
+                    menuSwitch(option);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Comando invalido");
+                }
+                catch (Exception e){
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+        public void mainAdminMenu()
+        {
+            int option = 0;
+            while (true)
+            {
+                try
+                {
+                    showAdminMainMenu();
                     option = int.Parse(Console.ReadLine());
                     menuSwitch(option);
                 }
@@ -83,7 +107,22 @@ namespace Cliente.Interface
                 }
             }
         }
-        private void showMainMenu()
+        private void showAdminMainMenu()
+        {
+            Console.WriteLine("*******************************\n");
+            Console.WriteLine("1) LISTAR ARCHIVOS");
+            Console.WriteLine("2) DESCARGAR ARCHIVO PARA EDITAR");
+            Console.WriteLine("3) DESCARGAR ARCHIVO PARA LECTURA");
+            Console.WriteLine("4) VER MIS ARCHIVOS");
+            Console.WriteLine("5) DEVOLVER ARCHIVO LEIDO");
+            Console.WriteLine("6) DEVOLVER ARCHIVO ACTUALIZADO");
+            Console.WriteLine("7) CREAR ARCHIVO");
+            Console.WriteLine("8) BORRAR ARCHIVO");
+            Console.WriteLine("9) CAMBIAR NOMBRE DE ARCHIVO");
+            Console.WriteLine("*******************************\n");
+
+        }
+        private void showUserMainMenu()
         {
             Console.WriteLine("*******************************\n");
             Console.WriteLine("1) LISTAR ARCHIVOS");
@@ -125,6 +164,21 @@ namespace Cliente.Interface
                         break;
                     case 6:
                         Console.WriteLine("Ingrese el nombre del archivo que termino de escribir");
+                        filename = Console.ReadLine();
+                        client.returnUpdatedFile(filename);
+                        break;
+                    case 7://crear archivo
+                        Console.WriteLine("Ingrese el nombre del archivo que termino de escribir");
+                        filename = Console.ReadLine();
+                        client.returnUpdatedFile(filename);
+                        break;
+                    case 8://eliminar archivo
+                        Console.WriteLine("Ingrese el nombre del archivo desea eliminar");
+                        filename = Console.ReadLine();
+                        client.returnUpdatedFile(filename);
+                        break;
+                    case 9://cambiar nombre de archivo
+                        Console.WriteLine("Ingrese el nombre del archivo desea cambiar el nombre");
                         filename = Console.ReadLine();
                         client.returnUpdatedFile(filename);
                         break;
