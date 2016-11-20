@@ -19,9 +19,7 @@ namespace AdminMaintenance
             maintenance = new AdminDataMaitenance();
 
             //load admin list
-            var list = maintenance.GetAllAdmins();
-
-            adminListBox.Items.AddRange(list.ToArray());
+            LoadAdminListBox();
             
         }
 
@@ -34,7 +32,16 @@ namespace AdminMaintenance
         {
             var userName = nameTextBox.Text;
             var password = passwordTextBox.Text;
-            
+
+            if (maintenance.AddAdmin(userName, password)) {
+                LoadAdminListBox();
+            }else System.Windows.Forms.MessageBox.Show("Admin username already exists");
+
+        }
+        private void LoadAdminListBox() {
+            var list = maintenance.GetAllAdmins();
+            adminListBox.Items.Clear();
+            adminListBox.Items.AddRange(list.ToArray());
         }
     }
 }

@@ -40,8 +40,16 @@ namespace Servidor
             }
         }
 
-        public void AddAdmin(Administrator admin) {
-            this.admins.Add(admin);
+        public bool AddAdmin(Administrator admin) {
+            if (admins.Any(a => a.Name.Equals(admin.Name)))
+            {
+                return false;
+            }
+            else {
+                admins.Add(admin);
+                return true;
+            }
+            
         }
         public bool AdminLogin(Administrator admin) {
             return admins.Any(a => a.Name.Equals(admin.Name)&&a.Password.Equals(admin.Password));

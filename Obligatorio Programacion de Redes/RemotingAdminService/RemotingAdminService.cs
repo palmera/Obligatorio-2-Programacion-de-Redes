@@ -16,9 +16,9 @@ namespace Servidor
             var admin = new Administrator(name, password);
             return SD.AdminLogin(admin);
         }
-        public void AddAdmin(string name, string password) {
+        public bool AddAdmin(string name, string password) {
             var admin = new Administrator(name, password);
-            SD.AddAdmin(admin);
+            return SD.AddAdmin(admin);
         }
 
         public bool ModifyAdmin(string name, string password, string newName) {
@@ -35,10 +35,6 @@ namespace Servidor
         {
             return SD.GetAllAdmins();
         }
-
-        public bool VerifyDeleteAdmin(string name, string password)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

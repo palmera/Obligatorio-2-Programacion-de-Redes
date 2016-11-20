@@ -18,5 +18,13 @@ namespace AdminMaintenance
         public List<string> GetAllAdmins() {
             return service.GetAllAdmins();
         }
+
+        public bool AddAdmin(string name, string password) {
+            return service.AddAdmin(name, password);
+        }
+
+        public bool DeleteAdmin(string name, string password) {
+            return service.DeleteAdmin(name, password);
+        }
     }
 }
