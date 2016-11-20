@@ -36,7 +36,9 @@ namespace AdminMaintenance
         }
         private void startMaintenanceScreen()
         {
-            MessageBox.Show("Nombre/Password CORRECTo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            AdminMaintenanceMain m = new AdminMaintenanceMain();
+            m.Show();
+            this.Hide();
         }
     }
 }
