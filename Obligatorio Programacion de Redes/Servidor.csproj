@@ -47,22 +47,28 @@
     <Compile Include="Files\Files.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="RemotingAdminServer.cs" />
-    <Compile Include="RemotingAdminService\RemotingAdminService.cs" />
+    <Compile Include="RemotingServices\RemotingAdminService.cs" />
+    <Compile Include="RemotingServices\UserService.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerData.cs" />
+    <Compile Include="UserData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IRemoting\IRemotingAdminService.csproj">
+    <ProjectReference Include="..\IRemoting\Services.csproj">
       <Project>{87277740-4b4c-4b11-8eee-13dab8889cb3}</Project>
-      <Name>IRemotingAdminService</Name>
+      <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Protocols\Protocols.csproj">
       <Project>{F5FC366D-0C11-410F-8021-A556A7E46849}</Project>
       <Name>Protocols</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

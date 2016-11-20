@@ -9,13 +9,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cliente", "Cliente\Cliente.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protocols", "Protocols\Protocols.csproj", "{F5FC366D-0C11-410F-8021-A556A7E46849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRemotingAdminService", "IRemoting\IRemotingAdminService.csproj", "{87277740-4B4C-4B11-8EEE-13DAB8889CB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "IRemoting\Services.csproj", "{87277740-4B4C-4B11-8EEE-13DAB8889CB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemotingConsumer", "RemotingConsumer\RemotingConsumer.csproj", "{E0852988-B204-42D9-9A72-3EC70BC4A48B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminMaintenance", "AdminMaintenance\AdminMaintenance.csproj", "{6F433E5F-2F0E-4E6B-ABED-E9044884F52E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF", "WCF\WCF.csproj", "{30E12934-1FD6-45B3-B368-8A73E6283D53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMaintenance", "UserMaintenance\UserMaintenance.csproj", "{F33BE8E0-FAD5-4168-8067-55425AE21E75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{30E12934-1FD6-45B3-B368-8A73E6283D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30E12934-1FD6-45B3-B368-8A73E6283D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30E12934-1FD6-45B3-B368-8A73E6283D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33BE8E0-FAD5-4168-8067-55425AE21E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33BE8E0-FAD5-4168-8067-55425AE21E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33BE8E0-FAD5-4168-8067-55425AE21E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33BE8E0-FAD5-4168-8067-55425AE21E75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
