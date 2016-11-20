@@ -13,7 +13,7 @@ namespace RemotingConsumer.Logic
             IRemotingAdminService.IRemotingAdminService adminService;
             adminService = (IRemotingAdminService.IRemotingAdminService)Activator.GetObject
                 (typeof(IRemotingAdminService.IRemotingAdminService),
-                "tcp://192.168.1.47:5000/RemotingAdminService");
+                "tcp://192.168.1.27:5000/RemotingAdminService");
             return adminService.LoginAdmin(name, password);
         }
 
@@ -22,7 +22,7 @@ namespace RemotingConsumer.Logic
             IRemotingAdminService.IRemotingAdminService adminService;
             adminService = (IRemotingAdminService.IRemotingAdminService)Activator.GetObject
                 (typeof(IRemotingAdminService.IRemotingAdminService),
-                "tcp://192.168.1.47:5000/RemotingAdminService");
+                "tcp://192.168.1.27:5000/RemotingAdminService");
             return adminService.GetAllAdmins();
         }
     }
