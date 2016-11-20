@@ -14,5 +14,9 @@ namespace AdminMaintenance
         public bool Login(string name,string password) {
             return service.Login(name, password);
         }
+
+        public List<string> GetAllAdmins() {
+            return service.GetAllAdmins();
+        }
     }
 }

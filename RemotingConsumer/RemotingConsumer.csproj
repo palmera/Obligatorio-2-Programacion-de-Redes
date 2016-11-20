@@ -60,10 +60,6 @@
       <Project>{87277740-4b4c-4b11-8eee-13dab8889cb3}</Project>
       <Name>IRemotingAdminService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{93DBC451-7316-46AB-B05F-657E7BE81D4D}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WCFServer\" />

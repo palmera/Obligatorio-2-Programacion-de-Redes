@@ -16,5 +16,14 @@ namespace RemotingConsumer.Logic
                 "tcp://192.168.1.47:5000/RemotingAdminService");
             return adminService.LoginAdmin(name, password);
         }
+
+        public static List<string> GetAllAdmins()
+        {
+            IRemotingAdminService.IRemotingAdminService adminService;
+            adminService = (IRemotingAdminService.IRemotingAdminService)Activator.GetObject
+                (typeof(IRemotingAdminService.IRemotingAdminService),
+                "tcp://192.168.1.47:5000/RemotingAdminService");
+            return adminService.GetAllAdmins();
+        }
     }
 }
