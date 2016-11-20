@@ -206,14 +206,8 @@ namespace Servidor
                 case 50:
                     downloadUpdatedFile(nws, clientName, data);
                     break;
-                case 60://crear archivo
-                    downloadUpdatedFile(nws, clientName, data);
-                    break;
-                case 70://eliminar archivo
-                    downloadUpdatedFile(nws, clientName, data);
-                    break;
-                case 80://renombrar archivo
-                    downloadUpdatedFile(nws, clientName, data);
+                case 60:
+                    createFile(nws, data);
                     break;
                 default:    
                     string hola = System.Text.Encoding.ASCII.GetString(header);
@@ -301,6 +295,23 @@ namespace Servidor
             }
 
            
+        }
+
+        private static void createFile(NetworkStream nws, byte[] data)
+        {
+            var response = Encoding.ASCII.GetString(data);
+            var fileData = response.Split(new char[] { '|' }, 2);
+            byte[] fileText;
+            if (fileData.Length > 1)
+                fileText = Encoding.ASCII.GetBytes(fileData[1]);
+            else
+                fileText = new byte[0];
+            List<Files> files = serverFiles.FindAll(f => f.name.Equals(fileData[0]));
+            if (files.Count > 0) fileData[0] = fileData[0] + "("+files.Count+")";
+            downloadFile(fileData[0], fileText);
+            var serverResponse = protocol.createFileOkResponse("Archivo Creado");
+            nws.Write(serverResponse,0,serverResponse.Length)
+
         }
         private static void downloadFile(string name,byte[] fileData)
         {

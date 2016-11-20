@@ -181,6 +181,10 @@ namespace Protocols
             response = "RES" + "99" + makeSizeText(message.Length + "") + message;
             return stringToByte(response);
         }
+        public byte[] createFileOkResponse(string response) {
+            response = "RES" + "61" + makeSizeText(response.Length + "") + response;
+            return stringToByte(response);
+        }
     }
 }
 
