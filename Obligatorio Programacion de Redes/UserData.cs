@@ -34,8 +34,7 @@ namespace Servidor
         }
         public bool Update(string name,Administrator user) {
             lock(userDataLock){
-                int index = users.FindIndex((u => u.Name.Equals(name)));
-                Administrator element = users.ElementAt(index);
+                var element = users.Find((u => u.Name.Equals(name)));
                 if (element != null)
                 {
                     element.Name = user.Name;
@@ -49,7 +48,7 @@ namespace Servidor
         {
             lock (userDataLock) { 
                 int index = users.FindIndex((u => u.Name.Equals(name)));
-                Administrator element = users.ElementAt(index);
+                var element = users.Find((u=> u.Name.Equals(name)));
                 if (element != null)
                 {
                     users.Remove(element);

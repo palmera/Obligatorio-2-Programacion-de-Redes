@@ -60,7 +60,7 @@ namespace Servidor
                     typeof(UserService),
                     "RemotingUserService",
                     WellKnownObjectMode.SingleCall);
-                Console.WriteLine("Remoting admin server started...");
+                Console.WriteLine("Remoting user server started...");
                 Console.ReadLine();
             }
             catch (Exception ex)

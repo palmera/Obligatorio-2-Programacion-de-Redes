@@ -14,7 +14,7 @@ namespace RemotingConsumer.Logic
         public UserLogic() {
             userService = (IUserService)Activator.GetObject
                 (typeof(Services.IUserService),
-                "tcp://192.168.1.27:5000/RemotingUserService");
+                "tcp://192.168.1.18:5010/RemotingUserService");
         }
         public bool LoginUser(string name, string password) {
             return userService.Login(name, password);

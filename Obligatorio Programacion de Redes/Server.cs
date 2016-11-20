@@ -26,6 +26,7 @@ namespace Servidor
         {
             Thread remotingThread = new Thread(() => RemotingAdminServer.StartAdminRemoting());
             remotingThread.Start();
+            RemotingAdminServer.StartUserRemoting();
             //RemotingAdminServer.StartAdminRemoting();
 
             serverFiles = new List<Files>();
