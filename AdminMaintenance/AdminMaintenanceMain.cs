@@ -19,7 +19,10 @@ namespace AdminMaintenance
             maintenance = new AdminDataMaitenance();
 
             //load admin list
-            adminListBox.DataSource = maintenance.GetAllAdmins();
+            var list = maintenance.GetAllAdmins();
+
+            adminListBox.Items.AddRange(list.ToArray());
+            
         }
 
         private void RemoveAdminButton_Click(object sender, EventArgs e)

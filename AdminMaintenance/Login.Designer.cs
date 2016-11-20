@@ -31,7 +31,7 @@
             this.Name = new System.Windows.Forms.TextBox();
             this.Password = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.saveAdmin = new System.Windows.Forms.Button();
+            this.loginRoot = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Name
@@ -61,22 +61,22 @@
             this.label1.Text = "Mantenimiento de Administradores";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // saveAdmin
+            // loginRoot
             // 
-            this.saveAdmin.Location = new System.Drawing.Point(198, 312);
-            this.saveAdmin.Name = "saveAdmin";
-            this.saveAdmin.Size = new System.Drawing.Size(151, 44);
-            this.saveAdmin.TabIndex = 3;
-            this.saveAdmin.Text = "Guardar";
-            this.saveAdmin.UseVisualStyleBackColor = true;
-            this.saveAdmin.Click += new System.EventHandler(this.saveAdmin_Click);
+            this.loginRoot.Location = new System.Drawing.Point(198, 312);
+            this.loginRoot.Name = "loginRoot";
+            this.loginRoot.Size = new System.Drawing.Size(151, 44);
+            this.loginRoot.TabIndex = 3;
+            this.loginRoot.Text = "Login";
+            this.loginRoot.UseVisualStyleBackColor = true;
+            this.loginRoot.Click += new System.EventHandler(this.saveAdmin_Click);
             // 
-            // Form1
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 391);
-            this.Controls.Add(this.saveAdmin);
+            this.Controls.Add(this.loginRoot);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.Name);
@@ -90,7 +90,7 @@
         private System.Windows.Forms.TextBox Name;
         private System.Windows.Forms.TextBox Password;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button saveAdmin;
+        private System.Windows.Forms.Button loginRoot;
     }
 }
 
