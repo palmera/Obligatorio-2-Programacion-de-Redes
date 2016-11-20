@@ -138,6 +138,7 @@ namespace Cliente.Interface
         {
             try
             {
+                string filename = "";
                 switch (option)
                 {
                     case 1:
@@ -145,7 +146,7 @@ namespace Cliente.Interface
                         break;
                     case 2:
                         Console.WriteLine("Ingrese el nombre del archivo que quiere editar");
-                        string filename = Console.ReadLine();
+                        filename = Console.ReadLine();
                         client.downloadFileForEdit(filename);
                         break;
                     case 3:
@@ -168,7 +169,7 @@ namespace Cliente.Interface
                         client.returnUpdatedFile(filename);
                         break;
                     case 7://crear archivo
-                        Console.WriteLine("Ingrese el nombre del archivo que termino de escribir");
+                        Console.WriteLine("Ingrese la ruta del archivo que quiere subir");
                         filename = Console.ReadLine();
                         client.returnUpdatedFile(filename);
                         break;

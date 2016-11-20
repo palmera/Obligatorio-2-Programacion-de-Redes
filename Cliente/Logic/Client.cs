@@ -99,6 +99,15 @@ namespace Cliente.Logic
                 case 51:
                     removeEditableFile(data);
                     break;
+                case 61://crear archivo
+                    addFile(data);
+                    break;
+                case 71://eliminar archivo
+                    removeEditableFile(data);
+                    break;
+                case 81://renombrar archivo
+                    removeEditableFile(data);
+                    break;
                 case 99:
                     serverError(data);
                     break;
@@ -109,7 +118,13 @@ namespace Cliente.Logic
                     break;
             }
         }
-
+        public void addFile(byte[] data) {
+            var routeAndName = Encoding.ASCII.GetString(data);
+            var a = 0;
+            /*ClientFile newFile = new ClientFile();
+            sendFileToServer(clientFile);*/
+            //receiveData();
+        }
         public void downloadFileForEdit(string filename)
         {
             NetworkStream nws = tcpClient.GetStream();
