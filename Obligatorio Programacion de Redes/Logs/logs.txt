@@ -1,1 +1,2 @@
-algologin admin root
+Admin login: Username: admin Password: adminSe agrega un usuario 
+Admin login: Username: admin Password: adminCreate Admin:Username: palmerPassword: palmer
