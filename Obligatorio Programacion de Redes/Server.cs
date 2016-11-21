@@ -346,6 +346,10 @@ namespace Servidor
             try
             {
                 downloadNewFile(fileData[0], fileText);
+                Files newFile = new Files();
+                newFile.name = fileData[0];
+                newFile.path = startupPath + '\\' + fileData[0];
+                serverFiles.Add(newFile);
             }catch(ArgumentException ex)
             {
                 sendError(nws, ex.Message);
@@ -360,15 +364,30 @@ namespace Servidor
             //dejar borrar si alguno lo esta leyendo/escribiendo?
             //si lo dejo, que hacer con los permisos otorgados?
             var fileName = Encoding.ASCII.GetString(data);
-            if (File.Exists(startupPath + "\\" + fileName))
+            lock (lock_object)
             {
-                File.Delete(startupPath + "\\" + fileName);
-                var serverResponse = protocol.createDeleteFileOkResponse("Archivo Borrado");
-                nws.Write(serverResponse, 0, serverResponse.Length);
+                Files selectedFile = findFile(fileName);
+                //verifico que el archivo existe, no esta siendo editado, y no esta siendo leido para poder mandarlo
+                if (selectedFile != null && !selectedFile.isBeingEdited() && !selectedFile.isBeingRead())
+                {
+                    if (File.Exists(startupPath + "\\" + fileName))
+                    {
+                        File.Delete(startupPath + "\\" + fileName);
+                        var serverResponse = protocol.createDeleteFileOkResponse("Archivo Borrado");
+                        nws.Write(serverResponse, 0, serverResponse.Length);
+                        serverFiles.RemoveAll(x => x.name.Equals(fileName));
+                    }
+                    else
+                    {
+                        sendError(nws, "No existe el archivo");
+                    }
+                }
+                else
+                {
+                    sendError(nws, "El archivo esta en uso, no puedes renombrarlo");
+                }
             }
-            else {
-                sendError(nws, "No existe el archivo");
-            }
+            
             
         }
 
@@ -378,20 +397,35 @@ namespace Servidor
 
             try
             {
-
-                var oldName = fileName.Split(new char[] { '|' }, 2)[0];
-                var newName = fileName.Split(new char[] { '|' }, 2)[1];
-
-                if (File.Exists(startupPath + "\\" + oldName))
+                lock (lock_object)
                 {
-                    var serverResponse = protocol.createChangeFileNameOkResponse("Nombre cambiado");
-                    nws.Write(serverResponse, 0, serverResponse.Length);
-                    File.Move(startupPath + "\\" + oldName, startupPath + "\\" + newName);
+                    var oldName = fileName.Split(new char[] { '|' }, 2)[0];
+                    var newName = fileName.Split(new char[] { '|' }, 2)[1];
+                    Files selectedFile = findFile(oldName);
+                    //verifico que el archivo existe, no esta siendo editado, y no esta siendo leido para poder mandarlo
+                    if (selectedFile != null && !selectedFile.isBeingEdited() && !selectedFile.isBeingRead())
+                    {
+                        
+
+                        if (File.Exists(startupPath + "\\" + oldName))
+                        {
+                            var serverResponse = protocol.createChangeFileNameOkResponse("Nombre cambiado");
+                            nws.Write(serverResponse, 0, serverResponse.Length);
+                            File.Move(startupPath + "\\" + oldName, startupPath + "\\" + newName);
+                            Files toChange = serverFiles.Find(x => x.name.Equals(oldName));
+                            toChange.name = newName;
+                        }
+                        else
+                        {
+                            sendError(nws, "No existe el archivo que quieres modificar");
+                        }
+                    }
+                    else
+                    {
+                        sendError(nws, "El archivo esta en uso, no puedes renombrarlo");
+                    }
                 }
-                else
-                {
-                    sendError(nws, "No existe el archivo que quieres modificar");
-                }
+                
             }
             catch (IndexOutOfRangeException ex)
             {
