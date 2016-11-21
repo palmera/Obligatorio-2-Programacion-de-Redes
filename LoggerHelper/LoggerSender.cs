@@ -12,7 +12,7 @@ namespace LoggerHelper
     {
         public static void Log(string log)
         {
-            string logqueName = ".\\private$\\Logs";
+            string logqueName = ConfigurationManager.AppSettings["messageQueueRemoteName"];//".\\private$\\Logs";
             MessageQueue que = new MessageQueue(logqueName);
             BinaryMessageFormatter bmf = new BinaryMessageFormatter();
             que.Formatter = bmf;
