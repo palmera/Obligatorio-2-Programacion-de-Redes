@@ -1,6 +1,7 @@
 ﻿using Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,10 @@ namespace RemotingConsumer.Logic
         private IUserService userService;
 
         public UserLogic() {
+            string remoteRoute = ConfigurationManager.AppSettings["userRemotingRoute"];
             userService = (IUserService)Activator.GetObject
                 (typeof(Services.IUserService),
-                "tcp://192.168.1.18:5010/RemotingUserService");
+                remoteRoute+"/RemotingUserService");
         }
         public bool LoginUser(string name, string password) {
             return userService.Login(name, password);

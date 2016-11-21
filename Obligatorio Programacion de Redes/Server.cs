@@ -1,5 +1,6 @@
 ﻿using Obligatorio_Programacion_de_Redes.Files;
 using Protocols;
+using Servidor.LoggerHelper;
 using Servidor.Models;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,15 @@ namespace Servidor
         private static List<Files> serverFiles;
         private static string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Archivos";
         private static Object lock_object = new object();
-
+        private static LoggerReceiver loggerReceiver;
         static void Main(string[] args)
         {
             Thread remotingAdminThread = new Thread(() => RemotingAdminServer.StartAdminRemoting());
             remotingAdminThread.Start();
             Thread remotingUserThread = new Thread(() => RemotingAdminServer.StartUserRemoting());
             remotingUserThread.Start();
+            loggerReceiver = new LoggerReceiver();
+            loggerReceiver.StartMessageQue();
             //RemotingAdminServer.StartUserRemoting();
             //RemotingAdminServer.StartAdminRemoting();
             serverFiles = getFilesList();
@@ -92,6 +95,7 @@ namespace Servidor
             {
                 try
                 {
+                    loggerReceiver.Receive();
                     byte[] header = new byte[9];
 
                     header = protocol.receiveData(clientConnected, 9);

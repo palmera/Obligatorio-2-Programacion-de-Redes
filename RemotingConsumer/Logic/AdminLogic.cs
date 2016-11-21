@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace RemotingConsumer.Logic
         private IRemotingAdminService.IRemotingAdminService adminService;
 
         public AdminLogic() {
+            string remoteRoute = ConfigurationManager.AppSettings["remotingRoute"];
             adminService = (IRemotingAdminService.IRemotingAdminService)Activator.GetObject
                 (typeof(IRemotingAdminService.IRemotingAdminService),
                 "tcp://192.168.1.18:5000/RemotingAdminService");
