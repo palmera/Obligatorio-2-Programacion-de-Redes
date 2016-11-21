@@ -93,45 +93,51 @@ namespace Cliente.Logic
 
         private  void executeAction(byte[] header)
         {
-            NetworkStream nws = tcpClient.GetStream();
-            int largoDatos = protocol.dataLength(header);
-            byte[] data = new byte[largoDatos];
-            data = protocol.receiveData(tcpClient, largoDatos);
-            int action = protocol.getAction(header);
-            switch (action)
+            try
             {
-                case 11: //servidor devuelve listado de archivos
-                    Console.WriteLine(Encoding.ASCII.GetString(data));
-                    break;
-                case 21://servidor devuelve un archivo para lectura
-                    downloadEditableFile(data);
-                    break;
-                case 31:
-                    downloadReadableFile(data);
-                    break;
-                case 41:
-                    removeReadingFile(data);
-                    break;
-                case 51:
-                    removeEditableFile(data);
-                    break;
-                case 61://crear archivo
-                   Console.WriteLine("Archivo Agregado");// addFile(data);
-                    break;
-                case 71://eliminar archivo
-                    Console.WriteLine("Archivo Eliminado");
-                    break;
-                case 81://renombrar archivo
-                    Console.WriteLine("Nombre Cambiado");
-                    break;
-                case 99:
-                    serverError(data);
-                    break;
+                NetworkStream nws = tcpClient.GetStream();
+                int largoDatos = protocol.dataLength(header);
+                byte[] data = new byte[largoDatos];
+                data = protocol.receiveData(tcpClient, largoDatos);
+                int action = protocol.getAction(header);
+                switch (action)
+                {
+                    case 11: //servidor devuelve listado de archivos
+                        Console.WriteLine(Encoding.ASCII.GetString(data));
+                        break;
+                    case 21://servidor devuelve un archivo para lectura
+                        downloadEditableFile(data);
+                        break;
+                    case 31:
+                        downloadReadableFile(data);
+                        break;
+                    case 41:
+                        removeReadingFile(data);
+                        break;
+                    case 51:
+                        removeEditableFile(data);
+                        break;
+                    case 61://crear archivo
+                        Console.WriteLine("Archivo Agregado");// addFile(data);
+                        break;
+                    case 71://eliminar archivo
+                        Console.WriteLine("Archivo Eliminado");
+                        break;
+                    case 81://renombrar archivo
+                        Console.WriteLine("Nombre Cambiado");
+                        break;
+                    case 99:
+                        serverError(data);
+                        break;
 
-                default:
-                    string hola = System.Text.Encoding.ASCII.GetString(header);
-                    Console.WriteLine("cliente no conectado es: " + hola);
-                    break;
+                    default:
+                        string hola = System.Text.Encoding.ASCII.GetString(header);
+                        Console.WriteLine("cliente no conectado es: " + hola);
+                        break;
+                }
+            }catch(ObjectDisposedException ex)
+            {
+                Console.WriteLine("No se pudo acceder al servidor");
             }
         }
 
