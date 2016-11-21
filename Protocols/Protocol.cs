@@ -66,6 +66,11 @@ namespace Protocols
                         connection.Close();
                         return null;
                     }
+                    catch (InvalidOperationException)
+                    {
+                        connection.Close();
+                        return null;
+                    }
                 }
                 return cabezal;
             }
