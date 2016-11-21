@@ -13,6 +13,7 @@ namespace Servidor.LoggerHelper
         private MessageQueue messageQue;
         public  void StartMessageQue()
         {
+
             string queName = ConfigurationManager.AppSettings["messageQueueName"];
             messageQue = new MessageQueue(queName);
         }
