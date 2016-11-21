@@ -1,4 +1,5 @@
-﻿using Obligatorio_Programacion_de_Redes.Files;
+﻿using LoggerHelper;
+using Obligatorio_Programacion_de_Redes.Files;
 using Protocols;
 using Servidor.LoggerHelper;
 using Servidor.Models;
@@ -351,7 +352,9 @@ namespace Servidor
                 newFile.name = fileData[0];
                 newFile.path = startupPath + '\\' + fileData[0];
                 serverFiles.Add(newFile);
-            }catch(ArgumentException ex)
+                LoggerSender.Log("Se Crea al archivo " + fileData[0] + " \n");
+            }
+            catch(ArgumentException ex)
             {
                 sendError(nws, ex.Message);
             }
@@ -377,6 +380,7 @@ namespace Servidor
                         var serverResponse = protocol.createDeleteFileOkResponse("Archivo Borrado");
                         nws.Write(serverResponse, 0, serverResponse.Length);
                         serverFiles.RemoveAll(x => x.name.Equals(fileName));
+                        LoggerSender.Log("Se Borrar al archivo " + fileName + " \n");
                     }
                     else
                     {
