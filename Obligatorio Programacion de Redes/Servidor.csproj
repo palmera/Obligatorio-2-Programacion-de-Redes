@@ -66,6 +66,10 @@
       <Project>{87277740-4b4c-4b11-8eee-13dab8889cb3}</Project>
       <Name>Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoggerHelper\LoggerSender.csproj">
+      <Project>{A36AC930-95AA-406F-ADBA-5BA527B204C5}</Project>
+      <Name>LoggerSender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Protocols\Protocols.csproj">
       <Project>{F5FC366D-0C11-410F-8021-A556A7E46849}</Project>
       <Name>Protocols</Name>

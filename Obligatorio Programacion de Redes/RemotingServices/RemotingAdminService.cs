@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IRemotingAdminService;
 using Servidor.Models;
+using LoggerHelper;
 
 namespace Servidor
 {
@@ -14,7 +15,9 @@ namespace Servidor
         private ServerData SD = ServerData.getInstance();
         public bool LoginAdmin(string name, string password) {
             var admin = new Administrator(name, password);
-            return SD.AdminLogin(admin);
+            var a = SD.AdminLogin(admin);
+            LoggerSender.sendLog("login desde RemotingAdminService: " + a + "- name: "+name);
+            return a;
         }
         public bool AddAdmin(string name, string password) {
             var admin = new Administrator(name, password);
