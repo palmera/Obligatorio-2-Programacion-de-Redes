@@ -54,14 +54,19 @@ namespace Cliente.Logic
         public void addFile(string routeAndName)
         {
             NetworkStream nws = tcpClient.GetStream();
-            string filename = routeAndName.Split('\\')[routeAndName.Split('\\').Length - 1];
-            string route = routeAndName.TrimEnd('\\');
-            ClientFile fileToAdd = new ClientFile(filename, route);
+            ClientFile fileToAdd = getClientFileFromFullPath(routeAndName);
             sendFileToServer(fileToAdd, true);
             receiveData();
             /*ClientFile newFile = new ClientFile();
             sendFileToServer(clientFile);*/
             //receiveData();
+        }
+        private ClientFile getClientFileFromFullPath(string routeAndName)
+        {
+            string filename = routeAndName.Split('\\')[routeAndName.Split('\\').Length - 1];
+
+            ClientFile fileToAdd = new ClientFile(filename, routeAndName);
+            return fileToAdd;
         }
         public void listFiles()
         {
@@ -111,13 +116,13 @@ namespace Cliente.Logic
                     removeEditableFile(data);
                     break;
                 case 61://crear archivo
-                    var a = 0;// addFile(data);
+                   Console.WriteLine("Archivo Agregado");// addFile(data);
                     break;
                 case 71://eliminar archivo
-                    removeEditableFile(data);
+                    Console.WriteLine("Archivo Eliminado");
                     break;
                 case 81://renombrar archivo
-                    removeEditableFile(data);
+                    Console.WriteLine("Nombre Cambiado");
                     break;
                 case 99:
                     serverError(data);
@@ -245,7 +250,24 @@ namespace Cliente.Logic
             receiveData();
 
         }
+        public void deleteFile(string name)
+        {
+            NetworkStream nws = tcpClient.GetStream();
+            var data = protocol.makeDeleteFileRequestHeader(name);
+            nws.Write(data, 0, data.Length);
+            receiveData();
+        }
 
+        public void changeFileName(string oldName,string newName)
+        {
+            NetworkStream nws = tcpClient.GetStream();
+            var data = protocol.makeChangeFileNameRequestHeader(oldName,newName);
+            nws.Write(data, 0, data.Length);
+            receiveData();
+
+        }
+
+        
         private void sendFileToServer(ClientFile clientFile, bool addingFile)
         {
             try

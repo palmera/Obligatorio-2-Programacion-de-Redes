@@ -176,12 +176,14 @@ namespace Cliente.Interface
                     case 8://eliminar archivo
                         Console.WriteLine("Ingrese el nombre del archivo desea eliminar");
                         filename = Console.ReadLine();
-                        client.returnUpdatedFile(filename);
+                        client.deleteFile(filename);
                         break;
                     case 9://cambiar nombre de archivo
                         Console.WriteLine("Ingrese el nombre del archivo desea cambiar el nombre");
-                        filename = Console.ReadLine();
-                        client.returnUpdatedFile(filename);
+                        var oldName = Console.ReadLine();
+                        Console.WriteLine("Ingrese el nuevo nombre");
+                        var newName = Console.ReadLine();
+                        client.changeFileName(oldName, newName);
                         break;
                     default:
                         Console.WriteLine("Comando invalido");

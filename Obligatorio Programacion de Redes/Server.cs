@@ -30,23 +30,28 @@ namespace Servidor
             remotingUserThread.Start();
             //RemotingAdminServer.StartUserRemoting();
             //RemotingAdminServer.StartAdminRemoting();
-
-            serverFiles = new List<Files>();
-            string[] filesPath = Directory.GetFiles(startupPath);
-            string[] fileNames = GetFileNames(startupPath);
-            for (int i = 0; i<fileNames.Length; i++)
-            {
-                Files f = new Files();
-                f.path = filesPath[i];
-                f.name = fileNames[i];
-                
-                serverFiles.Add(f);
-            }
+            serverFiles = getFilesList();
+            
             Console.WriteLine(buildFileListing(serverFiles));
             
             protocol = new Protocol();
             clientes = new List<TcpClient>();
             aceptarConecciones();
+        }
+        private static List<Files>  getFilesList()
+        {
+            serverFiles = new List<Files>();
+            string[] filesPath = Directory.GetFiles(startupPath);
+            string[] fileNames = GetFileNames(startupPath);
+            for (int i = 0; i < fileNames.Length; i++)
+            {
+                Files f = new Files();
+                f.path = filesPath[i];
+                f.name = fileNames[i];
+
+                serverFiles.Add(f);
+            }
+            return serverFiles;
         }
         private static string[] GetFileNames(string path)
         {
@@ -92,7 +97,21 @@ namespace Servidor
                     header = protocol.receiveData(clientConnected, 9);
                     if (header != null)
                         executeAction(header, clientConnected, ref nombreUsuario);
-                }catch(IOException) { }
+                }catch(IOException ex) {
+                    try
+                    {
+                        sendError(clientConnected.GetStream(), ex.Message);
+
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                    catch (InvalidOperationException)
+                    {
+
+                    }
+                }
             }
         }
 
@@ -163,7 +182,7 @@ namespace Servidor
                     string[] files = Directory.GetFiles(startupPath);
 
                    // sendDataToClient(buildFileListing(files), nws);
-                    byte[] a = protocol.headerSendListing(buildFileListing(serverFiles));
+                    byte[] a = protocol.headerSendListing(buildFileListing(getFilesList()));
                     string b = Encoding.ASCII.GetString(a);
                     nws.Write(a, 0, a.Length);
 
@@ -208,6 +227,12 @@ namespace Servidor
                     break;
                 case 60:
                     createFile(nws, data);
+                    break;
+                case 70:
+                    deleteFile(nws, data);
+                    break;
+                case 80:
+                    changeFileName(nws, data);
                     break;
                 default:    
                     string hola = System.Text.Encoding.ASCII.GetString(header);
@@ -306,11 +331,68 @@ namespace Servidor
                 fileText = Encoding.ASCII.GetBytes(fileData[1]);
             else
                 fileText = new byte[0];
-            List<Files> files = serverFiles.FindAll(f => f.name.Equals(fileData[0]));
-            if (files.Count > 0) fileData[0] = fileData[0] + "("+files.Count+")";
-            downloadFile(fileData[0], fileText);
+            string[] files = GetFileNames(startupPath);
+
+            if (files.Contains(fileData[0])) {
+                var fileNameData = fileData[0].Split(new char[] { '.' }, 2);
+                var fileName = fileNameData[0];
+                var fileExtension = fileNameData[1];
+                fileData[0] = fileName + "_copy." + fileExtension;
+            }
+            try
+            {
+                downloadNewFile(fileData[0], fileText);
+            }catch(ArgumentException ex)
+            {
+                sendError(nws, ex.Message);
+            }
             var serverResponse = protocol.createFileOkResponse("Archivo Creado");
             nws.Write(serverResponse, 0, serverResponse.Length);
+
+        }
+
+        private static void deleteFile(NetworkStream nws , byte[] data)
+        {
+            //dejar borrar si alguno lo esta leyendo/escribiendo?
+            //si lo dejo, que hacer con los permisos otorgados?
+            var fileName = Encoding.ASCII.GetString(data);
+            if (File.Exists(startupPath + "\\" + fileName))
+            {
+                File.Delete(startupPath + "\\" + fileName);
+                var serverResponse = protocol.createDeleteFileOkResponse("Archivo Borrado");
+                nws.Write(serverResponse, 0, serverResponse.Length);
+            }
+            else {
+                sendError(nws, "No existe el archivo");
+            }
+            
+        }
+
+        private static void changeFileName(NetworkStream nws,byte[] data)
+        {
+            var fileName = Encoding.ASCII.GetString(data);
+
+            try
+            {
+
+                var oldName = fileName.Split(new char[] { '|' }, 2)[0];
+                var newName = fileName.Split(new char[] { '|' }, 2)[1];
+
+                if (File.Exists(startupPath + "\\" + oldName))
+                {
+                    var serverResponse = protocol.createChangeFileNameOkResponse("Nombre cambiado");
+                    nws.Write(serverResponse, 0, serverResponse.Length);
+                    File.Move(startupPath + "\\" + oldName, startupPath + "\\" + newName);
+                }
+                else
+                {
+                    sendError(nws, "No existe el archivo que quieres modificar");
+                }
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                sendError(nws, "Error de formato");
+            }
 
         }
         private static void downloadFile(string name,byte[] fileData)
@@ -320,9 +402,14 @@ namespace Servidor
             {
                 File.Delete(startupPath + "\\" + name);
             }
+            downloadNewFile(name, fileData);
+        }
+        private static void downloadNewFile(string name, byte[] fileData)
+        {
             FileStream fs = new FileStream(startupPath + "\\" + name, FileMode.Append, FileAccess.Write);
             fs.Write(fileData, 0, fileData.Length);
             fs.Close();
+
         }
         private static void sendError(NetworkStream nws,string message) {
             byte[] errorData = protocol.serverErrorMessage(message);

@@ -103,10 +103,6 @@ namespace Protocols
             return stringToByte(trama);
         }
 
-        public byte[] makeAddFileRequestHeader(string filename, string data) {
-            string trama = "REQ" + "60" + makeSizeText((filename.Length + data.Length + 1) + "") + filename + "|" + data;
-            return stringToByte(trama);
-        }
 
         public byte[] makeDownloadFileForEditHeader(string filename)
         {
@@ -126,6 +122,21 @@ namespace Protocols
         public byte[] makeReturnUpdatedFileHeader(string data,string filename)
         {
             string trama = "REQ" + "50" + makeSizeText((filename.Length + data.Length + 1)+"") +filename+"|"+ data;
+            return stringToByte(trama);
+        }
+        public byte[] makeAddFileRequestHeader(string data, string filename)
+        {
+            string trama = "REQ" + "60" + makeSizeText((filename.Length + data.Length + 1) + "") + filename + "|" + data;
+            return stringToByte(trama);
+        }
+        public byte[] makeDeleteFileRequestHeader(string filename)
+        {
+            string trama = "REQ" + "70" + makeSizeText(filename.Length + "") + filename;
+            return stringToByte(trama);
+        }
+        public byte[] makeChangeFileNameRequestHeader(string oldName,string newName)
+        {
+            string trama = "REQ" + "80" + makeSizeText((oldName.Length + newName.Length+1) + "") + oldName +"|"+newName;
             return stringToByte(trama);
         }
         public byte[] authenticationResponse(int isAuthentified)
@@ -180,14 +191,24 @@ namespace Protocols
             var responseData = "RES" + "51" + makeSizeText(response.Length + "") + response;
             return stringToByte(responseData);
         }
+        public byte[] createFileOkResponse(string response) {
+            response = "RES" + "61" + makeSizeText(response.Length + "") + response;
+            return stringToByte(response);
+        }
+        public byte[] createDeleteFileOkResponse(string response)
+        {
+            response = "RES" + "71" + makeSizeText(response.Length + "") + response;
+            return stringToByte(response);
+        }
+        public byte[] createChangeFileNameOkResponse(string response)
+        {
+            response = "RES" + "81" + makeSizeText(response.Length + "") + response;
+            return stringToByte(response);
+        }
         public byte[] serverErrorMessage(string message)
         {
             string response;
             response = "RES" + "99" + makeSizeText(message.Length + "") + message;
-            return stringToByte(response);
-        }
-        public byte[] createFileOkResponse(string response) {
-            response = "RES" + "61" + makeSizeText(response.Length + "") + response;
             return stringToByte(response);
         }
     }
