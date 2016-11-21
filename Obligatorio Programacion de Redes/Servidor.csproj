@@ -34,7 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Files\Files.cs" />
+    <Compile Include="LoggerHelper\LoggerPersistance.cs" />
+    <Compile Include="LoggerHelper\LoggerReceiver.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="RemotingAdminServer.cs" />
     <Compile Include="RemotingServices\RemotingAdminService.cs" />

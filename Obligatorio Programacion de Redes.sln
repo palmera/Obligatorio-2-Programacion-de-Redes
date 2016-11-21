@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMaintenance", "UserMain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerSender", "LoggerHelper\LoggerSender.csproj", "{A36AC930-95AA-406F-ADBA-5BA527B204C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA5728D7-4D5B-4732-AA06-8C8BBB0FDEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36AC930-95AA-406F-ADBA-5BA527B204C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36AC930-95AA-406F-ADBA-5BA527B204C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36AC930-95AA-406F-ADBA-5BA527B204C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36AC930-95AA-406F-ADBA-5BA527B204C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
