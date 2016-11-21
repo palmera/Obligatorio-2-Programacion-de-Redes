@@ -148,7 +148,6 @@ namespace Cliente.Logic
             var data = protocol.makeDownloadFileForEditHeader(filename);
             nws.Write(data, 0, data.Length);
             receiveData();
-            LoggerSender.sendLog("Usuario pide archivo para editar");
         }
 
         private void downloadEditableFile(byte[] data)
@@ -272,7 +271,6 @@ namespace Cliente.Logic
             var data = protocol.makeChangeFileNameRequestHeader(oldName,newName);
             nws.Write(data, 0, data.Length);
             receiveData();
-            LoggerSender.sendLog("Usuario cambia el nombre del archivo "+oldName+" por: +"+newName);
         }
 
         

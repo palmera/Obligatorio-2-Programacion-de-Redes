@@ -22,7 +22,6 @@ namespace Servidor
         private static List<Files> serverFiles;
         private static string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Archivos";
         private static Object lock_object = new object();
-        private static LoggerReceiver loggerReceiver;
         static void Main(string[] args)
         {
             Thread remotingAdminThread = new Thread(() => RemotingAdminServer.StartAdminRemoting());
@@ -30,10 +29,8 @@ namespace Servidor
             Thread remotingUserThread = new Thread(() => RemotingAdminServer.StartUserRemoting());
             remotingUserThread.Start();
 
-            loggerReceiver = new LoggerReceiver();
-            loggerReceiver.StartMessageQue();
-            Thread loggerThread = new Thread(() => loggerReceiver.Receive());
-            loggerThread.Start();
+            LoggerReceiver loggerReceiver = new LoggerReceiver();
+            loggerReceiver.CreateQueue();
             
             
             //RemotingAdminServer.StartUserRemoting();

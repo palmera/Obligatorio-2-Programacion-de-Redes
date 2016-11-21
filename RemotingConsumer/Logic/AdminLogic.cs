@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoggerHelper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace RemotingConsumer.Logic
         {
             try
             {
+                LoggerSender.Log("algo");
                 return adminService.LoginAdmin(name, password);
             }catch(SocketException ex)
             {

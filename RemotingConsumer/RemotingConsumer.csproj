@@ -61,6 +61,10 @@
       <Project>{87277740-4b4c-4b11-8eee-13dab8889cb3}</Project>
       <Name>Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoggerHelper\LoggerSender.csproj">
+      <Project>{A36AC930-95AA-406F-ADBA-5BA527B204C5}</Project>
+      <Name>LoggerSender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{93DBC451-7316-46AB-B05F-657E7BE81D4D}</Project>
       <Name>Models</Name>

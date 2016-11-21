@@ -16,7 +16,7 @@ namespace Servidor
         public bool LoginAdmin(string name, string password) {
             var admin = new Administrator(name, password);
             var a = SD.AdminLogin(admin);
-            LoggerSender.sendLog("login desde RemotingAdminService: " + a + "- name: "+name);
+            LoggerSender.Log("login admin root");
             return a;
         }
         public bool AddAdmin(string name, string password) {

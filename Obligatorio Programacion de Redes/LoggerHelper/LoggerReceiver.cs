@@ -1,5 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Messaging;
@@ -10,39 +12,38 @@ namespace Servidor.LoggerHelper
 {
     public class LoggerReceiver
     {
-        private MessageQueue messageQue;
-        public  void StartMessageQue()
+        private MessageQueue queue;
+        public void CreateQueue()
         {
-
-            string queName = ConfigurationManager.AppSettings["messageQueueName"];
-
-            if (!MessageQueue.Exists(queName))
-                messageQue = MessageQueue.Create(queName, true);
+            string messageQueuePath = ".\\private$\\Logs";
+            if (!MessageQueue.Exists(messageQueuePath))
+            {
+                queue = MessageQueue.Create(messageQueuePath);
+            }
             else
-                messageQue = new MessageQueue(queName);
-            BinaryMessageFormatter bmf = new BinaryMessageFormatter();
-            messageQue.Formatter = bmf;
+            {
+                queue = new MessageQueue(messageQueuePath);
+            }
+            BackgroundWorker work =null;
+            BinaryMessageFormatter formatter = new BinaryMessageFormatter();
+            queue.Formatter = formatter;
+            work = new BackgroundWorker();
+            work.DoWork += logQueWork;
+            work.RunWorkerAsync();
+            
         }
-        public void Receive()
+        private void logQueWork(object sender,DoWorkEventArgs e)
         {
             while (true)
             {
-                try
+                Message message = queue.Receive();
+                if(message != null)
                 {
-                    Message message = messageQue.Receive();
-                    if (message != null)
-                    {
-                        string logLine = message.Body.ToString();
-                        LoggerPersistance loggerPersistance = LoggerPersistance.getInstance();
-                        loggerPersistance.AddLine(logLine);
-                    }
+                    string logLine = message.Body.ToString();
+                    LoggerPersistance.getInstance().AddLine(logLine);
                 }
-                catch (Exception)
-                {
-                }
-                
             }
-            
         }
+
     }
 }
