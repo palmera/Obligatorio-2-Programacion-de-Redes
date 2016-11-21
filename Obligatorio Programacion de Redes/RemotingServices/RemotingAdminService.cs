@@ -16,18 +16,21 @@ namespace Servidor
         public bool LoginAdmin(string name, string password) {
             var admin = new Administrator(name, password);
             var a = SD.AdminLogin(admin);
-            LoggerSender.Log("login admin root");
+            LoggerSender.Log("Admin login:\r\n Username: "+name+"\r\n Password: "+password+"\r\n");
             return a;
         }
         public bool AddAdmin(string name, string password) {
             var admin = new Administrator(name, password);
+            LoggerSender.Log("Create Admin:\r\n Username: " + name + "\r\n Password: " + password + "\r\n");
             return SD.AddAdmin(admin);
         }
         public bool ModifyAdmin(string name, string newName) {
+            LoggerSender.Log("Modify Admin:\r\n Old name: " + name + "\r\n New name: " + newName + "\r\n");
             return SD.ModifyAdmin(name, newName);
         }
 
         public bool DeleteAdmin(string name) {
+            LoggerSender.Log("Delete Admin:\r\n Username: " + name + "\r\n");
             return SD.DeleteAdmin(name);
         }
 

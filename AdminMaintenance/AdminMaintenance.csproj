@@ -108,6 +108,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoggerHelper\LoggerSender.csproj">
+      <Project>{A36AC930-95AA-406F-ADBA-5BA527B204C5}</Project>
+      <Name>LoggerSender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WCF\WCF.csproj">
       <Project>{30E12934-1FD6-45B3-B368-8A73E6283D53}</Project>
       <Name>WCF</Name>

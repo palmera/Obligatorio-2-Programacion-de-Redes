@@ -24,7 +24,6 @@ namespace RemotingConsumer.Logic
         {
             try
             {
-                LoggerSender.Log("algo");
                 return adminService.LoginAdmin(name, password);
             }catch(SocketException ex)
             {
