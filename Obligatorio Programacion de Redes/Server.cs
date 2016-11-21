@@ -29,8 +29,13 @@ namespace Servidor
             remotingAdminThread.Start();
             Thread remotingUserThread = new Thread(() => RemotingAdminServer.StartUserRemoting());
             remotingUserThread.Start();
+
             loggerReceiver = new LoggerReceiver();
             loggerReceiver.StartMessageQue();
+            Thread loggerThread = new Thread(() => loggerReceiver.Receive());
+            loggerThread.Start();
+            
+            
             //RemotingAdminServer.StartUserRemoting();
             //RemotingAdminServer.StartAdminRemoting();
             serverFiles = getFilesList();
@@ -95,7 +100,6 @@ namespace Servidor
             {
                 try
                 {
-                    loggerReceiver.Receive();
                     byte[] header = new byte[9];
 
                     header = protocol.receiveData(clientConnected, 9);

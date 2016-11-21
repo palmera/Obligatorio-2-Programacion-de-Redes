@@ -14,17 +14,34 @@ namespace Servidor.LoggerHelper
         public  void StartMessageQue()
         {
             string queName = ConfigurationManager.AppSettings["messageQueueName"];
-            messageQue = new MessageQueue(queName);
+
+            if (!MessageQueue.Exists(queName))
+                messageQue = MessageQueue.Create(queName, true);
+            else
+                messageQue = new MessageQueue(queName);
+            BinaryMessageFormatter bmf = new BinaryMessageFormatter();
+            messageQue.Formatter = bmf;
         }
         public void Receive()
         {
-            Message message = messageQue.Receive();
-            if (message != null)
+            while (true)
             {
-                string logLine = message.Body.ToString();
-                LoggerPersistance loggerPersistance = LoggerPersistance.getInstance();
-                loggerPersistance.AddLine(logLine);
+                try
+                {
+                    Message message = messageQue.Receive();
+                    if (message != null)
+                    {
+                        string logLine = message.Body.ToString();
+                        LoggerPersistance loggerPersistance = LoggerPersistance.getInstance();
+                        loggerPersistance.AddLine(logLine);
+                    }
+                }
+                catch (Exception)
+                {
+                }
+                
             }
+            
         }
     }
 }
